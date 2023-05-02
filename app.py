@@ -119,4 +119,4 @@ def actualizar_resultado(checkboxes_poza_values, checkboxes_linea_values):
     return resultado, sorted(list(all_combs - set_auto)), resultado2
 
 if __name__ == '__main__':
-    app.run_server(port=8050, debug=True)
+    app.run_server(debug=False)
