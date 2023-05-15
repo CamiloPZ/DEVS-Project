@@ -26,7 +26,7 @@ app.layout = html.Div([
     html.H1('Implementación de Lógica de Fajas - Chimbote', style={"textAlign": "center","font-weight":"bold"}),
 
     html.Br(),
-    html.H2('Ocupación de Pozas Actual', style={"font-weight":"bold"}),
+    html.H2('Se está descargando actualmente en las siguientes pozas:', style={"font-weight":"bold"}),
     html.Div(
         dcc.Checklist(
             id='checkboxes_poza',
@@ -44,6 +44,65 @@ app.layout = html.Div([
         ),
         style={'columnCount': 2, 'marginBottom': 20}
     ),
+    # html.Div([
+    #     dcc.Slider( id="volumen_poza_1", value=0, min=0, max=350, step=25),
+    #     dcc.Slider( id="volumen_poza_2", value=0, min=0, max=350, step=25),
+    #     dcc.Slider( id="volumen_poza_3", value=0, min=0, max=350, step=25),
+    #     dcc.Slider( id="volumen_poza_4", value=0, min=0, max=350, step=25),
+    #     dcc.Slider( id="volumen_poza_5", value=0, min=0, max=350, step=25),
+    #     dcc.Slider( id="volumen_poza_6", value=0, min=0, max=350, step=25),
+    #     dcc.Slider( id="volumen_poza_7", value=0, min=0, max=350, step=25),
+    #     dcc.Slider( id="volumen_poza_8", value=0, min=0, max=250, step=25),
+    #             ]
+    # ),
+
+    dbc.Card(
+        [
+            dbc.Row([
+                dbc.Col([
+                        html.H2('VOLUMEN DE POZAS'),
+                        html.Hr(),
+                        html.H6('Poza 1'),
+                        dcc.Slider( id="volumen_poza_1", value=0, min=0, max=350, step=25),
+                        html.H6('Poza 2'),
+                        dcc.Slider( id="volumen_poza_2", value=0, min=0, max=350, step=25),
+                        html.H6('Poza 3'),
+                        dcc.Slider( id="volumen_poza_3", value=0, min=0, max=350, step=25),
+                        html.H6('Poza 4'),
+                        dcc.Slider( id="volumen_poza_4", value=0, min=0, max=350, step=25),
+                        html.H6('Poza 5'),
+                        dcc.Slider( id="volumen_poza_5", value=0, min=0, max=350, step=25),
+                        html.H6('Poza 6'),
+                        dcc.Slider( id="volumen_poza_6", value=0, min=0, max=350, step=25),
+                        html.H6('Poza 7'),
+                        dcc.Slider( id="volumen_poza_7", value=0, min=0, max=350, step=25),
+                        html.H6('Poza 8'),
+                        dcc.Slider( id="volumen_poza_8", value=0, min=0, max=250, step=25),]
+                ),
+                dbc.Col([
+                        html.H2('MINUTOS EN QUE TERMINARÁ LA DESCARGA'),
+                        html.Hr(),
+                        html.H6('Poza 1'),
+                        dcc.Slider( id="horas_poza_1", value=0, min=0, max=200, step=15),
+                        html.H6('Poza 2'),
+                        dcc.Slider( id="horas_poza_2", value=0, min=0, max=200, step=15),
+                        html.H6('Poza 3'),
+                        dcc.Slider( id="horas_poza_3", value=0, min=0, max=200, step=15),
+                        html.H6('Poza 4'),
+                        dcc.Slider( id="horas_poza_4", value=0, min=0, max=200, step=15),
+                        html.H6('Poza 5'),
+                        dcc.Slider( id="horas_poza_5", value=0, min=0, max=200, step=15),
+                        html.H6('Poza 6'),
+                        dcc.Slider( id="horas_poza_6", value=0, min=0, max=200, step=15),
+                        html.H6('Poza 7'),
+                        dcc.Slider( id="horas_poza_7", value=0, min=0, max=200, step=15),
+                        html.H6('Poza 8'),
+                        dcc.Slider( id="horas_poza_8", value=0, min=0, max=150, step=15), ]                   
+                ),
+            ])
+        ]
+    ),
+    html.Br(),
     html.H2('Ocupación de Líneas Actual', style={"font-weight":"bold"}),
     html.Div(
         dcc.Checklist(
@@ -96,27 +155,78 @@ app.layout = html.Div([
     [
     # dash.dependencies.Input('dropdown', 'value'),
      dash.dependencies.Input('checkboxes_poza', 'value'),
-     dash.dependencies.Input('checkboxes_linea', 'value')])
-def actualizar_resultado(checkboxes_poza_values, checkboxes_linea_values):
+     dash.dependencies.Input('checkboxes_linea', 'value'),
+     dash.dependencies.Input('volumen_poza_1', 'value'),
+     dash.dependencies.Input('volumen_poza_2', 'value'),
+     dash.dependencies.Input('volumen_poza_3', 'value'),
+     dash.dependencies.Input('volumen_poza_4', 'value'),
+     dash.dependencies.Input('volumen_poza_5', 'value'),
+     dash.dependencies.Input('volumen_poza_6', 'value'),
+     dash.dependencies.Input('volumen_poza_7', 'value'),
+     dash.dependencies.Input('volumen_poza_8', 'value'),
+     dash.dependencies.Input('horas_poza_1', 'value'),
+     dash.dependencies.Input('horas_poza_2', 'value'),
+     dash.dependencies.Input('horas_poza_3', 'value'),
+     dash.dependencies.Input('horas_poza_4', 'value'),
+     dash.dependencies.Input('horas_poza_5', 'value'),
+     dash.dependencies.Input('horas_poza_6', 'value'),
+     dash.dependencies.Input('horas_poza_7', 'value'),
+     dash.dependencies.Input('horas_poza_8', 'value'),
+     ])
+def actualizar_resultado(checkboxes_poza_values, checkboxes_linea_values, vol_1, vol_2, vol_3, vol_4, vol_5, vol_6, vol_7, vol_8, time_1, time_2, time_3, time_4, time_5, time_6, time_7, time_8 ):
     # resultado = f'Se seleccionó la opción  las casillas: {", ".join(checkboxes_poza_values)}' + ' y ' + f'{"".join(checkboxes_linea_values)}'
     # print(checkboxes_poza_values)
     # print(checkboxes_linea_values)
-    resultado = 'Las Pozas ' + str(checkboxes_poza_values) + ' y las Líneas '  + str(checkboxes_linea_values) + ' se encuentran ocupados.'
+    df_current = df.copy()
+
+    if vol_1 > 300:
+        mask = df_current['NUM_NUM_POZA'] == 1
+        df_current = df_current[~mask]
+
+    if vol_2 > 300:
+        mask = df_current['NUM_NUM_POZA'] == 2
+        df_current = df_current[~mask]
+
+    if vol_3 > 300:
+        mask = df_current['NUM_NUM_POZA'] == 3
+        df_current = df_current[~mask]
+
+    if vol_4 > 300:
+        mask = df_current['NUM_NUM_POZA'] == 4
+        df_current = df_current[~mask]
+
+    if vol_5 > 300:
+        mask = df_current['NUM_NUM_POZA'] == 5
+        df_current = df_current[~mask]
+
+    if vol_6 > 300:
+        mask = df_current['NUM_NUM_POZA'] == 6
+        df_current = df_current[~mask]
+
+    if vol_7 > 300:
+        mask = df_current['NUM_NUM_POZA'] == 7
+        df_current = df_current[~mask]
+
+    if vol_8 > 200:
+        mask = df_current['NUM_NUM_POZA'] == 8
+        df_current = df_current[~mask]
+
+    resultado = 'Las Pozas ' + str(checkboxes_poza_values) + ' y las Líneas '  + str(checkboxes_linea_values) + ' se encuentran ocupadas.'
     
 
-    all_combs = set(df['COM_CH_LN_PZ'].unique())
-    mask =  (df['NUM_NUM_POZA'].isin(checkboxes_poza_values)) & (df['NOM_LINEA'].isin(checkboxes_linea_values))
+    all_combs = set(df_current['COM_CH_LN_PZ'].unique())
+    mask =  (df_current['NUM_NUM_POZA'].isin(checkboxes_poza_values)) & (df_current['NOM_LINEA'].isin(checkboxes_linea_values))
     
-    # lineas_bloqueadas = list(df.loc[mask, 'DESC_LINEA_AUTO_BLOQUEAD'])
-    set_auto = set(df.loc[mask, 'DESC_LINEA_AUTO_BLOQUEAD'].explode())
+    # lineas_bloqueadas = list(df_current.loc[mask, 'DESC_LINEA_AUTO_BLOQUEAD'])
+    set_auto = set(df_current.loc[mask, 'DESC_LINEA_AUTO_BLOQUEAD'].explode())
 
     
-    print('-------------------------')
+    # print('-------------------------')
     # print(df_filtered.head())
     # print(df_filtered.head())
     resultado2 = 'Las Combinaciones:  ' + str(sorted(list(set_auto))) + ' se encuentran autobloquedas por fajas'
-    print(resultado2)
+    # print(resultado2)
     return resultado, sorted(list(all_combs - set_auto)), resultado2
 
 if __name__ == '__main__':
-    app.run_server(debug=False)
+    app.run_server(debug=True)
